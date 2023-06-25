@@ -1,4 +1,4 @@
-import { Avatar, FormControlLabel, TextField, Typography } from "@mui/material";
+import { Avatar, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Button from "@mui/material/Button";

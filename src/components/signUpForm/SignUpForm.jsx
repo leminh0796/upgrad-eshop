@@ -1,13 +1,16 @@
 import { useState } from "react";
-import { Avatar, FormControlLabel, TextField, Typography } from "@mui/material";
+import { Avatar, TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import { signUp } from "api/auth";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUpForm() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -16,7 +19,7 @@ export default function SignUpForm() {
     confirmPassword: "",
     contactNumber: "",
   });
-  
+
   const handleChange = (event) => {
     setFormData({
       ...formData,
@@ -26,14 +29,14 @@ export default function SignUpForm() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(formData);
     try {
       const response = await signUp(formData);
-      console.log(response);
+      toast.success(response.message);
+      navigate("/login");
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
-  }
+  };
 
   return (
     <Box

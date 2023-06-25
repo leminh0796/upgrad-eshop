@@ -12,7 +12,7 @@ const Logo = () => {
         <Typography
           variant="h6"
           component="div"
-          nowrap
+          nowrap="true"
           sx={{ display: "block" }}
         >
           upGrad E-Shop
