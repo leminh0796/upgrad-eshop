@@ -1,7 +1,11 @@
+import Copyright from "common/components/copyright/Copyright";
+import SignInForm from "components/signInForm/SignInForm";
+
 export default function LoginScreen() {
   return (
     <div>
-      <h1>LoginScreen</h1>
+      <SignInForm />
+      <Copyright marginTop={8} />
     </div>
   );
 }

@@ -4,6 +4,7 @@ import Logo from "common/components/logo/Logo";
 import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 import { Box } from "@mui/system";
+import "./NavigationBar.css";
 
 export default function NavigationBar() {
   return (
@@ -18,9 +19,9 @@ export default function NavigationBar() {
       >
         <Logo />
         <Search />
-        <Box sx={{ display: "flex", alignItems: "center", gap: "20px" }}>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Signup</Link>
+        <Box sx={{ display: "flex", alignItems: "center", gap: "30px" }}>
+          <Link className="nav-link" to="/login">Login</Link>
+          <Link className="nav-link" to="/signup">Signup</Link>
         </Box>
       </Container>
     </AppBar>

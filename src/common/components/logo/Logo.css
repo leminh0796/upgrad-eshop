@@ -1,0 +1,7 @@
+.logo {
+  display: flex;
+  text-decoration: none;
+}
+.logo:visited {
+  color: white;
+}
