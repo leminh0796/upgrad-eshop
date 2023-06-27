@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { signIn } from "api/auth";
+import { listUser } from "api/users";
 
 const AuthCtx = createContext({
   user: null,
@@ -15,9 +16,17 @@ const useAuth = () => {
   const login = async (username, password) => {
     setIsLoading(true);
     try {
-      const user = await signIn({ username, password });
-      setUser(user);
+      let user = await signIn({ username, password });
       localStorage.setItem("access_token", user.token);
+      const listUserResponse = await listUser(user.token);
+      if (listUserResponse.status === 200) {
+        user = {
+          ...user,
+          isAdmin: true,
+        };
+        localStorage.setItem("isAdmin", true);
+      }
+      setUser(user);
       return user;
     } catch (error) {
       setUser(null);
@@ -29,12 +38,14 @@ const useAuth = () => {
   const logOut = () => {
     setUser(null);
     localStorage.removeItem("access_token");
+    localStorage.removeItem("isAdmin");
   };
 
   useEffect(() => {
     const token = localStorage.getItem("access_token");
+    const isAdmin = localStorage.getItem("isAdmin");
     if (token) {
-      setUser({ token: token });
+      setUser({ token: token, isAdmin: isAdmin });
     }
     setIsLoading(false);
   }, []);

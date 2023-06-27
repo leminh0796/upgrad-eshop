@@ -40,6 +40,11 @@ export default function NavigationBar() {
               <Link className="nav-link" to="/">
                 Home
               </Link>
+              {user.isAdmin && (
+                <Link className="nav-link" to="/">
+                  Add Product
+                </Link>
+              )}
               <Button
                 variant="contained"
                 color="secondary"
