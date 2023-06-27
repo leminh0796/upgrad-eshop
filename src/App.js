@@ -2,8 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { AppRoutes } from "router/AppRoutes";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.min.css';
-import useAuth from "common/hooks/useAuth";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "common/hooks/useAuth";
 
 const theme = createTheme({
   palette: {
@@ -19,7 +19,6 @@ const theme = createTheme({
 const router = createBrowserRouter(AppRoutes);
 
 function App() {
-  const { AuthProvider } = useAuth();
   return (
     <AuthProvider>
       <ThemeProvider theme={theme}>
