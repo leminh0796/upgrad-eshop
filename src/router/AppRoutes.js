@@ -2,6 +2,10 @@ import ErrorScreen from "screens/ErrorScreen";
 import LoginScreen from "screens/LoginScreen";
 import RootScreen from "screens/RootScreen";
 import SignupScreen from "screens/SignupScreen";
+import ProductScreen, { loader as productLoader } from "screens/ProductScreen";
+import AddProductScreen, {
+  loader as addProductLoader,
+} from "screens/AddProductScreen";
 
 export const AppRoutes = [
   {
@@ -11,7 +15,8 @@ export const AppRoutes = [
     children: [
       {
         path: "/",
-        element: <h1>home</h1>,
+        loader: productLoader,
+        element: <ProductScreen />,
       },
       {
         path: "/login",
@@ -20,6 +25,11 @@ export const AppRoutes = [
       {
         path: "/signup",
         element: <SignupScreen />,
+      },
+      {
+        path: "/add-product",
+        loader: addProductLoader,
+        element: <AddProductScreen />,
       },
     ],
   },
