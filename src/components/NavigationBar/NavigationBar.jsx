@@ -41,7 +41,7 @@ export default function NavigationBar() {
                 Home
               </Link>
               {user.isAdmin && (
-                <Link className="nav-link" to="/add-product">
+                <Link className="nav-link" to="/admin/add-product">
                   Add Product
                 </Link>
               )}
