@@ -1,6 +1,7 @@
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
+import store from "store";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -50,6 +51,7 @@ const SearchInput = () => {
       <StyledInputBase
         placeholder="Search…"
         inputProps={{ "aria-label": "search" }}
+        onChange={(e) => store.dispatch({ type: "SET_SEARCH_TEXT", payload: e.target.value })}
       />
     </Search>
   );

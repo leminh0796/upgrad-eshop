@@ -1,6 +1,7 @@
 const initialState = {
   category: "all",
   sortBy: "default",
+  searchText: "",
 };
 
 const filterReducer = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const filterReducer = (state = initialState, action) => {
         ...state,
         sortBy: action.payload,
       };
+    case "SET_SEARCH_TEXT":
+      return {
+        ...state,
+        searchText: action.payload,
+      }
     default:
       return state;
   }
