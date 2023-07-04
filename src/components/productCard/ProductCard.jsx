@@ -3,10 +3,11 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, IconButton, CardActionArea, CardActions } from "@mui/material";
+import { Button, IconButton, CardActions } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid";
+import { Link } from "react-router-dom";
 import { useAuth } from "common/hooks/useAuth";
 
 export default function ProductCard(props) {
@@ -17,43 +18,46 @@ export default function ProductCard(props) {
     <Card
       sx={{
         maxWidth: 300,
-        height: 400,
+        height: 380,
         display: "flex",
         flexDirection: "column",
         marginBottom: 4,
       }}
     >
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          height="160"
-          image={product.imageUrl}
-          alt={product.name}
-        />
-        <CardContent height="150">
-          <Grid container justifyContent="space-between">
-            <Grid item xs={8}>
-              <Typography gutterBottom variant="h6" component="div">
-                {product.name}
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography gutterBottom variant="h6" component="div">
-                ₹ {product.price}
-              </Typography>
-            </Grid>
+      <CardMedia
+        component="img"
+        height="160"
+        image={product.imageUrl}
+        alt={product.name}
+      />
+      <CardContent
+        height="130"
+        sx={{ overflowY: "scroll", marginBottom: "auto" }}
+      >
+        <Grid container justifyContent="space-between">
+          <Grid item xs={8}>
+            <Typography gutterBottom variant="h6" component="div">
+              {product.name}
+            </Typography>
           </Grid>
-          <Typography variant="body2" color="text.secondary">
-            {product.description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions sx={{ marginTop: "auto" }}>
+          <Grid item xs={4}>
+            <Typography gutterBottom variant="h6" component="div">
+              ₹ {product.price}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Typography variant="body2" color="text.secondary">
+          {product.description}
+        </Typography>
+      </CardContent>
+      <CardActions>
         <Grid container justifyContent="space-between">
           <Grid item xs={9}>
-            <Button variant="contained" size="small">
-              Buy
-            </Button>
+            <Link to={`/products/${product.id}`}>
+              <Button variant="contained" size="small">
+                Buy
+              </Button>
+            </Link>
           </Grid>
           <Grid item xs={3}>
             {user && user.isAdmin && (

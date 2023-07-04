@@ -14,6 +14,17 @@ export const getProducts = async () => {
   }
 };
 
+export const getProduct = async (productId) => {
+  try {
+    const response = await apiClient.get(`/products/${productId}`);
+    return response.data;
+  } catch (error) {
+    const message = error.response.data.message;
+    if (message) throw new Error(message);
+    else throw new Error(error.response.data.error);
+  }
+};
+
 export const getCategories = async () => {
   try {
     const response = await apiClient.get("/products/categories");
@@ -23,7 +34,7 @@ export const getCategories = async () => {
     if (message) throw new Error(message);
     else throw new Error(error.response.data.error);
   }
-}
+};
 
 export const addProduct = async (productData) => {
   try {
@@ -34,4 +45,4 @@ export const addProduct = async (productData) => {
     if (message) throw new Error(message);
     else throw new Error(error.response.data.error);
   }
-}
+};

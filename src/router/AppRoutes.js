@@ -11,6 +11,10 @@ import AddProductScreen, {
 import ProductListScreen, {
   loader as productListLoader,
 } from "screens/product/ProductListScreen";
+import ProductDetailScreen, {
+  loader as productDetailLoader,
+} from "screens/product/ProductDetailScreen";
+import OrderScreen, { loader as orderLoader } from "screens/OrderScreen";
 
 export const AppRoutes = [
   {
@@ -29,8 +33,9 @@ export const AppRoutes = [
             loader: productListLoader,
           },
           {
-            path: "/:productId",
-            element: <h1>Product details</h1>,
+            path: "/products/:productId",
+            element: <ProductDetailScreen />,
+            loader: productDetailLoader,
           },
         ],
       },
@@ -41,6 +46,11 @@ export const AppRoutes = [
       {
         path: "/signup",
         element: <SignupScreen />,
+      },
+      {
+        path: "/order",
+        element: <OrderScreen />,
+        loader: orderLoader,
       },
       {
         path: "/admin/add-product",
