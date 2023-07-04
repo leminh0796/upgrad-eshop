@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import store from "store";
 import { useLoaderData } from "react-router-dom";
-
+import { getUserFromStorage } from "common/hooks/useAuth";
 export async function loader({ params }) {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
+  const user = getUserFromStorage();
+  if (!user) {
     return redirect("/login");
   }
   try {

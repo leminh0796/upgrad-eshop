@@ -15,8 +15,7 @@ export default function OrderStepTwo() {
       const addresses = await getAddresses();
       setAddresses(addresses);
     } catch (error) {
-      localStorage.removeItem("access_token");
-      localStorage.removeItem("isAdmin");
+      localStorage.removeItem("data");
       navigate("/login");
       toast.error("Please login again");
     }

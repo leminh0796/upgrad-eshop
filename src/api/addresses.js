@@ -1,7 +1,8 @@
 import apiClient from "common/utils/apiClient";
+import { getUserFromStorage } from "common/hooks/useAuth";
 
-const access_token = localStorage.getItem("access_token");
-apiClient.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+const user = getUserFromStorage();
+apiClient.defaults.headers.common["Authorization"] = `Bearer ${user?.token}`;
 
 export const getAddresses = async () => {
   try {

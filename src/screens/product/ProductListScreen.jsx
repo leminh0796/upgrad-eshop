@@ -3,10 +3,11 @@ import { getProducts } from "api/products";
 import SortSelect from "common/components/sortSelect/SortSelect";
 import Container from "@mui/material/Container";
 import ProductGrid from "components/productGrid/ProductGrid";
+import { getUserFromStorage } from "common/hooks/useAuth";
 
 export async function loader() {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
+  const user = getUserFromStorage();
+  if (!user) {
     return redirect("/login");
   }
   try {

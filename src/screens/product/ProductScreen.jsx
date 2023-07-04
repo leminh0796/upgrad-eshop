@@ -2,10 +2,11 @@ import { redirect } from "react-router-dom";
 import { getCategories } from "api/products";
 import CategoryTabs from "components/categoryTabs/CategoryTabs";
 import { Outlet } from "react-router-dom";
+import { getUserFromStorage } from "common/hooks/useAuth";
 
 export async function loader() {
-  const token = localStorage.getItem("access_token");
-  if (!token) {
+  const user = getUserFromStorage();
+  if (!user) {
     return redirect("/login");
   }
   try {

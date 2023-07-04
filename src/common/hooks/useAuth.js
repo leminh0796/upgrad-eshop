@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import { signIn } from "api/auth";
-import { listUser } from "api/users";
+import CryptoJS from "crypto-js";
 
 const AuthCtx = createContext({
   user: null,
@@ -17,15 +17,12 @@ const useAuth = () => {
     setIsLoading(true);
     try {
       let user = await signIn({ username, password });
-      localStorage.setItem("access_token", user.token);
-      const listUserResponse = await listUser(user.token);
-      if (listUserResponse.status === 200) {
-        user = {
-          ...user,
-          isAdmin: true,
-        };
-        localStorage.setItem("isAdmin", true);
-      }
+      user = { ...user, isAdmin: user.roles.includes("ADMIN") };
+      const simpleEncrypt = CryptoJS.AES.encrypt(
+        JSON.stringify(user),
+        "somesecretkey"
+      );
+      localStorage.setItem("data", simpleEncrypt);
       setUser(user);
       return user;
     } catch (error) {
@@ -37,15 +34,20 @@ const useAuth = () => {
 
   const logOut = () => {
     setUser(null);
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("isAdmin");
+    localStorage.removeItem("data");
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    const isAdmin = localStorage.getItem("isAdmin");
-    if (token) {
-      setUser({ token: token, isAdmin: isAdmin });
+    const data = localStorage.getItem("data");
+    const secret = "somesecretkey";
+    let user = null;
+    if (data) {
+      user = JSON.parse(
+        CryptoJS.AES.decrypt(data, secret).toString(CryptoJS.enc.Utf8)
+      );
+    }
+    if (user) {
+      setUser(user);
     }
     setIsLoading(false);
   }, []);
@@ -53,10 +55,22 @@ const useAuth = () => {
   return { user, login, logOut, isLoading };
 };
 
+const getUserFromStorage = () => {
+  const data = localStorage.getItem("data");
+    const secret = "somesecretkey";
+    let user = null;
+    if (data) {
+      user = JSON.parse(
+        CryptoJS.AES.decrypt(data, secret).toString(CryptoJS.enc.Utf8)
+      );
+    }
+    return user;
+}
+
 const AuthProvider = ({ children }) => {
   const auth = useAuth();
 
   return <AuthCtx.Provider value={auth}>{children}</AuthCtx.Provider>;
 };
 
-export { AuthCtx, AuthProvider, useAuth };
+export { AuthCtx, AuthProvider, useAuth, getUserFromStorage };

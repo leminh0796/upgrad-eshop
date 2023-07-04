@@ -1,11 +1,11 @@
 import { redirect } from "react-router-dom";
 import AddProductForm from "../components/addProductForm/AddProductForm";
 import { getCategories } from "api/products";
+import { getUserFromStorage } from "common/hooks/useAuth"
 
 export async function loader() {
-  const token = localStorage.getItem("access_token");
-  const isAdmin = localStorage.getItem("isAdmin");
-  if (!token || !isAdmin) {
+  const user = getUserFromStorage();
+  if (!user || !user.isAdmin) {
     return redirect("/login");
   }
 
