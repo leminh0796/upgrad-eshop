@@ -2,21 +2,20 @@ import { useState } from "react";
 import { TextField, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { addProduct } from "api/products";
+import { modifyProduct } from "api/products";
 import { toast } from "react-toastify";
 import { useLoaderData } from "react-router-dom";
-import CreatableSelect from "react-select/creatable";
 
-export default function AddProductForm() {
-  const { categories } = useLoaderData();
+export default function ModifyProductForm() {
+  const { product } = useLoaderData();
   const [formData, setFormData] = useState({
-    name: "",
-    category: "",
-    manufacturer: "",
-    availableItems: "",
-    price: "",
-    imageUrl: "",
-    description: "",
+    name: product.name || "",
+    category: product.category || "",
+    manufacturer: product.manufacturer || "",
+    availableItems: product.availableItems || "",
+    price: product.price || "",
+    imageUrl: product.imageUrl || "",
+    description: product.description || "",
   });
 
   const handleChange = (event) => {
@@ -26,20 +25,13 @@ export default function AddProductForm() {
     });
   };
 
-  const handleCategoryChange = (newValue) => {
-    setFormData({
-      ...formData,
-      category: newValue?.value,
-    });
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await addProduct(formData);
-      toast.success(`Product ${formData.name} added successfully`);
+      await modifyProduct(product.id, formData);
+      toast.success(`Product ${formData.name} modified successfully`);
     } catch (error) {
-      toast.error(error.message);
+      toast.error("Modify Product Failed");
     }
   };
 
@@ -53,7 +45,7 @@ export default function AddProductForm() {
       }}
     >
       <Typography component="h1" variant="h5">
-        Add Product
+        Modify Product
       </Typography>
       <Box component="form" sx={{ width: 450, mt: 1 }} onSubmit={handleSubmit}>
         <TextField
@@ -63,31 +55,19 @@ export default function AddProductForm() {
           id="name"
           label="Name"
           name="name"
+          value={formData.name}
           onChange={handleChange}
           autoFocus
         />
-        <CreatableSelect
-          isClearable
-          className="category-select-container"
-          styles={{
-            container: (baseStyles) => ({
-              ...baseStyles,
-              marginTop: 8,
-            }),
-            menu: (baseStyles) => ({
-              ...baseStyles,
-              zIndex: 100,
-            }),
-          }}
-          options={categories.map((category) => ({
-            value: category,
-            label: category,
-          }))}
-          required={true}
-          placeholder="Category *"
+        <TextField
+          margin="normal"
+          fullWidth
           id="category"
+          label="Category"
           name="category"
-          onChange={handleCategoryChange}
+          value={formData.category}
+          onChange={handleChange}
+          autoFocus
         />
         <TextField
           margin="normal"

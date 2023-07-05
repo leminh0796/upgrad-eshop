@@ -63,9 +63,11 @@ export default function ProductCard(props) {
             {user && user.isAdmin && (
               <Grid container justifyContent="space-between">
                 <Grid item>
-                  <IconButton aria-label="delete" size="small">
-                    <EditIcon fontSize="small" />
-                  </IconButton>
+                  <Link to={`/admin/modify-product/${product.id}`}>
+                    <IconButton aria-label="delete" size="small">
+                      <EditIcon fontSize="small" />
+                    </IconButton>
+                  </Link>
                 </Grid>
                 <Grid item>
                   <IconButton aria-label="delete" size="small">

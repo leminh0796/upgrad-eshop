@@ -1,4 +1,4 @@
-import apiClient from "common/utils/apiClient";
+import apiClient, { handle401 } from "common/utils/apiClient";
 
 export const getProducts = async () => {
   try {
@@ -43,3 +43,15 @@ export const addProduct = async (productData) => {
     else throw new Error(error.response.data.error);
   }
 };
+
+export const modifyProduct = async (productId, productData) => {
+  try {
+    const response = await apiClient.put(`/products/${productId}`, productData);
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 401) handle401();
+    const message = error.response.data.message;
+    if (message) throw new Error(message);
+    else throw new Error(error.response.data.error);
+  }
+}
