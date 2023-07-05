@@ -2,7 +2,7 @@ import { redirect } from "react-router-dom";
 import { getCategories } from "api/products";
 import CategoryTabs from "components/categoryTabs/CategoryTabs";
 import { Outlet } from "react-router-dom";
-import { getUserFromStorage } from "common/hooks/useAuth";
+import { getUserFromStorage } from "common/utils/apiClient";
 
 export async function loader() {
   const user = getUserFromStorage();

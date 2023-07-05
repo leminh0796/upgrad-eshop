@@ -1,7 +1,7 @@
 import { redirect } from "react-router-dom";
 import AddProductForm from "../components/addProductForm/AddProductForm";
 import { getCategories } from "api/products";
-import { getUserFromStorage } from "common/hooks/useAuth"
+import { getUserFromStorage } from "common/utils/apiClient"
 
 export async function loader() {
   const user = getUserFromStorage();

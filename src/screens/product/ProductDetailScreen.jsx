@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import store from "store";
 import { useLoaderData } from "react-router-dom";
-import { getUserFromStorage } from "common/hooks/useAuth";
+import { getUserFromStorage } from "common/utils/apiClient";
 export async function loader({ params }) {
   const user = getUserFromStorage();
   if (!user) {

@@ -1,8 +1,4 @@
 import apiClient from "common/utils/apiClient";
-import { getUserFromStorage } from "common/hooks/useAuth";
-
-const user = getUserFromStorage();
-apiClient.defaults.headers.common["Authorization"] = `Bearer ${user?.token}`;
 
 export const getProducts = async () => {
   try {

@@ -15,7 +15,7 @@ import store from "store";
 import { useSelector } from "react-redux";
 import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
-import { getUserFromStorage } from "common/hooks/useAuth";
+import { getUserFromStorage } from "common/utils/apiClient";
 
 export function loader() {
   const user = getUserFromStorage();

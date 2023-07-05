@@ -2,8 +2,10 @@ import { Box, Typography, TextField, Button } from "@mui/material";
 import { useState } from "react";
 import { addAddress } from "api/addresses";
 import { toast } from "react-toastify";
+import { useAuth } from "common/hooks/useAuth";
 
-export default function AddAddressForm({ onAddAddres }) {
+export default function AddAddressForm({ onAddAddress }) {
+  const { user } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     contactNumber: "",
@@ -17,6 +19,7 @@ export default function AddAddressForm({ onAddAddres }) {
   const handleChange = (event) => {
     setFormData({
       ...formData,
+      user: user.id,
       [event.target.name]: event.target.value,
     });
   }
@@ -25,10 +28,10 @@ export default function AddAddressForm({ onAddAddres }) {
     event.preventDefault();
     try {
       await addAddress(formData);
-      onAddAddres();
+      onAddAddress();
       toast.success("New address added successfully");
     } catch (error) {
-      toast.error(error.message);
+      toast.error("Error while adding new address");
     }
   }
 

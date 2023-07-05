@@ -55,22 +55,10 @@ const useAuth = () => {
   return { user, login, logOut, isLoading };
 };
 
-const getUserFromStorage = () => {
-  const data = localStorage.getItem("data");
-    const secret = "somesecretkey";
-    let user = null;
-    if (data) {
-      user = JSON.parse(
-        CryptoJS.AES.decrypt(data, secret).toString(CryptoJS.enc.Utf8)
-      );
-    }
-    return user;
-}
-
 const AuthProvider = ({ children }) => {
   const auth = useAuth();
 
   return <AuthCtx.Provider value={auth}>{children}</AuthCtx.Provider>;
 };
 
-export { AuthCtx, AuthProvider, useAuth, getUserFromStorage };
+export { AuthCtx, AuthProvider, useAuth };
