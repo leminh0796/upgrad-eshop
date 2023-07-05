@@ -1,10 +1,16 @@
-export const placeOrder = (product, quantity, address = null) => {
+export const placeOrder = (product, quantity) => {
   return {
     type: "PLACE_ORDER",
     payload: {
       product,
       quantity,
-      address,
     },
   };
 };
+
+export const setAddress = (address) => {
+  return {
+    type: "SET_ADDRESS",
+    payload: address,
+  };
+}

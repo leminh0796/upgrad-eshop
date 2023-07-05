@@ -10,8 +10,12 @@ const orderReducer = (state = initialState, action) => {
       return {
         ...state,
         product: action.payload.product,
-        address: action.payload.address,
         quantity: action.payload.quantity,
+      };
+    case "SET_ADDRESS":
+      return {
+        ...state,
+        address: action.payload,
       };
     default:
       return state;

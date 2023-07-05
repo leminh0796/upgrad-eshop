@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 import Select from "react-select";
 import { Box, TextField, Button, Typography } from "@mui/material";
 import AddAddressForm from "components/addAddressForm/AddAddressForm";
+import store from "store";
+import { setAddress } from "store/actions/orderActions";
 
 export default function OrderStepTwo() {
   const navigate = useNavigate();
@@ -20,6 +22,11 @@ export default function OrderStepTwo() {
       toast.error("Please login again");
     }
   };
+
+  const handleSelectAddress = (selectedOption) => {
+    const address = addresses.find(x => x.id === selectedOption.value);
+    store.dispatch(setAddress(address));
+  }
 
   useEffect(() => {
     fetchAddresses();
@@ -54,8 +61,10 @@ export default function OrderStepTwo() {
           container: (baseStyles) => ({
             ...baseStyles,
             maxWidth: 800,
+            zIndex: 100,
           }),
         }}
+        onChange={handleSelectAddress}
       />
       <Typography variant="p" sx={{ marginTop: 2, textAlign: "center" }}>
         -OR-
