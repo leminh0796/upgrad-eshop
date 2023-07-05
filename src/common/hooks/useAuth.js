@@ -9,6 +9,8 @@ const AuthCtx = createContext({
   isLoading: true,
 });
 
+// Please modify the backend server AuthController sign in route
+// to return the user object which has id, roles, token instead of the token only.
 const useAuth = () => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
