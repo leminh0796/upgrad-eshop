@@ -13,9 +13,11 @@ import OrderStepTwo from "components/orderStepTwo/OrderStepTwo";
 import OrderStepThree from "components/orderStepThree/OrderStepThree";
 import store from "store";
 import { useSelector } from "react-redux";
-import { redirect } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getUserFromStorage } from "common/utils/apiClient";
+import { useAuth } from "common/hooks/useAuth";
+import { createOrder } from "api/orders";
 
 export function loader() {
   const user = getUserFromStorage();
@@ -34,7 +36,9 @@ export function loader() {
 const steps = ["Items", "Select Address", "Confirm Order"];
 
 export default function OrderScreen() {
-  const { address } = useSelector((state) => state.order);
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const { product, quantity, address } = useSelector((state) => state.order);
   const [activeStep, setActiveStep] = useState(0);
 
   const handleNext = () => {
@@ -43,6 +47,8 @@ export default function OrderScreen() {
       toast.error("Please select an address");
     } else if (activeStep < steps.length - 1) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    } else {
+      handlePlaceOrder();
     }
   };
 
@@ -62,6 +68,22 @@ export default function OrderScreen() {
         return <OrderStepThree />;
       default:
         return "Unknown step";
+    }
+  };
+
+  const handlePlaceOrder = async () => {
+    const order = {
+      product: product.id,
+      quantity: quantity,
+      address: address.id,
+      user: user.id,
+    };
+    try {
+      await createOrder(order);
+      toast.success("Order placed successfully");
+      navigate("/");
+    } catch (error) {
+      toast.error("Something went wrong");
     }
   };
 

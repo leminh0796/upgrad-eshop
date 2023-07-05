@@ -1,4 +1,5 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
+import OrderInformation from "components/orderInformation/OrderInformation";
 import { useSelector } from "react-redux";
 
 export default function OrderStepOne() {
@@ -22,19 +23,7 @@ export default function OrderStepOne() {
           gap: 2,
         }}
       >
-        <Typography variant="h4">{product.name}</Typography>
-        <Typography variant="p">
-          Quantity: <b>{quantity}</b>
-        </Typography>
-        <Typography variant="p">
-          Category: <b>{product.category}</b>
-        </Typography>
-        <Typography variant="p">
-          <i>{product.description}</i>
-        </Typography>
-        <Typography variant="h5" color="red">
-          Total Price : ₹ {product.price * quantity}
-        </Typography>
+        <OrderInformation product={product} quantity={quantity} />
       </Grid>
     </Grid>
   );
