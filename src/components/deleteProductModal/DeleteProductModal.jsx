@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Modal, Box, Button, Typography } from "@mui/material";
+import { grey } from "@mui/material/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { closeModal } from "store/actions/productActions";
 import { deleteProduct } from "api/products";
@@ -53,7 +54,7 @@ export default function DeleteProductModal() {
         <Typography id="modal-delete-product" variant="h6" component="h2">
           Confirm deletion of product!
         </Typography>
-        <Typography id="modal-delete-product-description" sx={{ mt: 2 }}>
+        <Typography id="modal-delete-product-description" sx={{ mt: 2 }} color={grey[600]}>
           Are you sure you want to delete the product?
         </Typography>
         <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 3 }}>
