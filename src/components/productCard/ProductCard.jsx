@@ -9,10 +9,17 @@ import EditIcon from "@mui/icons-material/Edit";
 import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import { useAuth } from "common/hooks/useAuth";
+import { openModal } from "store/actions/productActions";
+import { useDispatch } from "react-redux";
 
 export default function ProductCard(props) {
   const { product } = props;
   const { user } = useAuth();
+  const dispatch = useDispatch();
+
+  const handleOpenModal = () => {
+    dispatch(openModal(product));
+  }
 
   return (
     <Card
@@ -70,7 +77,7 @@ export default function ProductCard(props) {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <IconButton aria-label="delete" size="small">
+                  <IconButton aria-label="delete" size="small" onClick={handleOpenModal}>
                     <DeleteIcon fontSize="small" />
                   </IconButton>
                 </Grid>

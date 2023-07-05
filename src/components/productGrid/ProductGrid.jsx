@@ -3,8 +3,11 @@ import { useLoaderData } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProductCard from "components/productCard/ProductCard";
 import Grid from "@mui/material/Grid";
+import { useAuth } from "common/hooks/useAuth";
+import DeleteProductModal from "components/deleteProductModal/DeleteProductModal";
 
 export default function ProductGrid() {
+  const { user } = useAuth();
   const { products } = useLoaderData();
   const filter = useSelector((state) => state.filter);
   const [categorizedProduct, setCategorizedProduct] = useState(products);
@@ -60,6 +63,9 @@ export default function ProductGrid() {
           </Grid>
         );
       })}
+      {user && user.isAdmin && (
+        <DeleteProductModal/>
+      )}
     </Grid>
   );
 }

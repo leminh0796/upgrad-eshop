@@ -55,3 +55,15 @@ export const modifyProduct = async (productId, productData) => {
     else throw new Error(error.response.data.error);
   }
 }
+
+export const deleteProduct = async (productId) => {
+  try {
+    const response = await apiClient.delete(`/products/${productId}`);
+    return response.data;
+  } catch (error) {
+    if (error.response.status === 401) handle401();
+    const message = error.response.data.message;
+    if (message) throw new Error(message);
+    else throw new Error(error.response.data.error);
+  }
+}
